@@ -6,6 +6,32 @@
 ## LOCAL SETUP
 1. > cp .env.example .env
 1. > docker-composer run --rm artisan key:generate
+1. Create the `mysql`, `nginx` folder to store docker data
+1. Inside `nginx` folder create the `default.conf` file with the following configuration
+```bash
+  server {
+    listen 80;
+    index index.php index.html;
+    server_name localhost;
+    error_log  /var/log/nginx/error.log;
+    access_log /var/log/nginx/access.log;
+    root /var/www/html/public;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass php:9000;
+        fastcgi_index index.php;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+    }
+}
+```
 
 ---
 
@@ -38,7 +64,7 @@ To run the npm container use the following command
 
 ## 📝 Local Linting + Testing
 
-### _For Testing 👇
+### For Testing 👇
 * [**PHPUNIT**](https://phpunit.de/)
 * [**PHP Insights**](https://phpinsights.com/)
 
@@ -47,11 +73,13 @@ To run the npm container use the following command
 
 ### Run below command to check your PHP Insights Score
 > `docker-compose run --rm artisan insights`
-The acceptable code score for
+
+The acceptable code score are the following:
 * **CODE** - **90%**
 * **COMPLEXITY** - **90%**
 * **Architecture** - **90%**
 * **Style** - **90%**
-<br/> so make your code **PASS** that threshold.
 
-> using the composer container `docker-compose run --rm composer run test:insights`
+> to check run the following command 👇
+
+`docker-compose run --rm composer run test:insights`
