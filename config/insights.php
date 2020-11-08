@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenTraits;
-use NunoMaduro\PhpInsights\Domain\Metrics\Architecture\Classes;
-use SlevomatCodingStandard\Sniffs\TypeHints\ReturnTypeHintSniff;
+use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenDefineFunctions;
 use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenFinalClasses;
 use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenNormalClasses;
-use SlevomatCodingStandard\Sniffs\TypeHints\PropertyTypeHintSniff;
 use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenPrivateMethods;
-use SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSniff;
-use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenDefineFunctions;
+use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenTraits;
+use NunoMaduro\PhpInsights\Domain\Metrics\Architecture\Classes;
+use SlevomatCodingStandard\Sniffs\Commenting\UselessFunctionDocCommentSniff;
+use SlevomatCodingStandard\Sniffs\Namespaces\AlphabeticallySortedUsesSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\DisallowMixedTypeHintSniff;
-use SlevomatCodingStandard\Sniffs\Namespaces\AlphabeticallySortedUsesSniff;
-use SlevomatCodingStandard\Sniffs\Commenting\UselessFunctionDocCommentSniff;
+use SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSniff;
+use SlevomatCodingStandard\Sniffs\TypeHints\PropertyTypeHintSniff;
+use SlevomatCodingStandard\Sniffs\TypeHints\ReturnTypeHintSniff;
 
 return [
 
@@ -85,9 +85,8 @@ return [
         UselessFunctionDocCommentSniff::class,
         ObjectCalisthenics\Sniffs\Classes\ForbiddenPublicPropertySniff::class,
         SlevomatCodingStandard\Sniffs\ControlStructures\DisallowEmptySniff::class,
-        PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\UselessOverridingMethodSniff::class,
-        SlevomatCodingStandard\Sniffs\TypeHints\DisallowMixedTypeHintSniff::class,
-        SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff::class
+        PHP_CodeSniffer\Standards\PSR1\Sniffs\Methods\CamelCapsMethodNameSniff::class,
+        PhpCsFixer\Fixer\Phpdoc\PhpdocIndentFixer::class
     ],
 
     'config' => [
@@ -98,16 +97,47 @@ return [
             'maxCount' => 13,
         ],
         \NunoMaduro\PhpInsights\Domain\Insights\CyclomaticComplexityIsHigh::class => [
-            'maxComplexity' => 6,
+            'maxComplexity' => 8,
         ],
         \PhpCsFixer\Fixer\Import\OrderedImportsFixer::class => [
-            'imports_order' => ['class', 'const', 'function'],
             'sort_algorithm' => 'alpha', // possible values ['alpha', 'length', 'none']
         ],
         \PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff::class => [
-            'lineLimit' => 90,
-            'absoluteLineLimit' => 100,
+            'lineLimit' => 110,
+            'absoluteLineLimit' => 120,
             'ignoreComments' => false,
+        ],
+        \PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer::class => [
+            'order' => [ // List of strings defining order of elements.
+                'use_trait',
+                'constant_protected',
+                'constant_private',
+                'constant_public',
+                'property_protected',
+                'property_private',
+                'property_public',
+                'construct',
+                'destruct',
+                'magic',
+                'phpunit',
+                'method_protected',
+                'method_private',
+                'method_public',
+            ],
+            'sortAlgorithm' => 'none' // possible values ['none', 'alpha']
+        ],
+        \PhpCsFixer\Fixer\Basic\BracesFixer::class => [
+            'allow_single_line_closure' => true,
+            'position_after_anonymous_constructs' => 'same', // possible values ['same', 'next']
+            'position_after_control_structures' => 'same', // possible values ['same', 'next']
+            'position_after_functions_and_oop_constructs' => 'next', // possible values ['same', 'next']
+        ],
+        \ObjectCalisthenics\Sniffs\Files\FunctionLengthSniff::class => [
+            'maxLength' => 66,
+        ],
+        \ObjectCalisthenics\Sniffs\NamingConventions\ElementNameMinimalLengthSniff::class => [
+            'minLength' => 3,
+            'allowedShortNames' => ['i', 'id', 'to', 'up', 'IN', 'OUT'],
         ]
     ],
 
@@ -123,10 +153,10 @@ return [
     */
 
     'requirements' => [
-       'min-quality' => 88,
-       'min-complexity' => 88,
-       'min-architecture' => 88,
-       'min-style' => 80,
+       'min-quality' => 90,
+       'min-complexity' => 90,
+       'min-architecture' => 90,
+       'min-style' => 90,
        'disable-security-check' => false,
     ],
 

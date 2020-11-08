@@ -1,7 +1,6 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://fixandfree.herokuapp.com/svg/fandf.co_horizontal.svg" width="300"></a></p>
+# EVENT-CALENDAR
 
-## Personal Care Services
-### AUTOMATED SUBSCRIPTION APPLICATION
+### CODING CHALLENGE APPLICATION
 
 ---
 
@@ -9,8 +8,12 @@
 
 #### 1. [**Laravel 7**](https://laravel.com/)
 #### 2. [**Composer**](https://getcomposer.org/)
+To run the composer container use the following command
+👉  &nbsp; `docker-compose run --rm composer [command]`
 #### 3. [**MySQL**](https://www.mysql.com/)
 #### 4. [**NPM**](https://www.npmjs.com/)
+To run the npm container use the following command
+👉  &nbsp; `docker-compose run --rm npm [command]`
 #### 5. [**PHP 7.4**](https://www.php.net/releases/7_4_0.php)
 
 ---
@@ -30,7 +33,7 @@
 
 ## 📝 Local Linting + Testing
 
-### _For Testing 👇_
+### _For Testing 👇
 * [**PHPUNIT**](https://phpunit.de/)
 * [**PHP Insights**](https://phpinsights.com/)
 
@@ -38,12 +41,12 @@
 > `docker-compose run --rm composer lint:psr12`
 
 ### Run below command to check your PHP Insights Score
-_NOTE!! **85%** is the acceptable score_ for all **Code**, **Complexity**, **Architecture**, **Style** so make your code pass that threshold.
-
-> using direct bin `./vendor/bin/phpinsights`
-<br/>
-
-> using php artisan `php artisan phpinsights`
-<br/>
+> `docker-compose run --rm artisan insights`
+The acceptable code score for
+* **CODE** - **85%**
+* **COMPLEXITY** - **85%**
+* **Architecture** - **85%**
+* **Style** - **85%**
+<br/> so make your code **PASS** that threshold.
 
 > using the composer container `docker-compose run --rm composer run test:insights`
