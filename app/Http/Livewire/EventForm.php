@@ -43,8 +43,9 @@ class EventForm extends Component
             'dayofweek' => json_encode($this->dayofweek),
         ];
 
-        Events::create($eventData);
+        $event = Events::create($eventData);
         session()->flash('success', 'Event Saved!!');
+        $this->emitTo('event-viewer', 'onSaveEvent', $event->id);
     }
 
     public function render()

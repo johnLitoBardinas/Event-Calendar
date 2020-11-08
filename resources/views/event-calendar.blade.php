@@ -11,13 +11,7 @@
         </div>
 
         <div class="col-md-7">
-            <h2>Nov 2020</h2>
-            <dl>
-                @for ($i = 0; $i < 10; $i++)
-                    <dd>{{$i}}</dd>
-                    <hr>
-                @endfor
-            </dl>
+            @livewire('event-viewer')
         </div>
     </div>
 
