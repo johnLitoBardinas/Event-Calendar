@@ -26,13 +26,18 @@ class EventForm extends Component
 
     public function saveEvent()
     {
+        if (empty($this->from) || empty($this->to)) {
+            session()->flash('error', 'Invalid From or To.');
+            return;
+        }
+
         if (Carbon::parse($this->to)->lessThanOrEqualTo($this->from)) {
-            session()->flash('error', 'Invalid Date!!');
+            session()->flash('error', 'Invalid Date.');
             return;
         }
 
         if (empty($this->dayofweek)) {
-            session()->flash('error', 'Invalid Day of the Week!!');
+            session()->flash('error', 'Invalid Day of the Week.');
             return;
         }
 
