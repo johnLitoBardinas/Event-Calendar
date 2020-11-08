@@ -3,6 +3,11 @@
 ### CODING CHALLENGE APPLICATION
 
 ---
+## LOCAL SETUP
+1. > cp .env.example .env
+1. > docker-composer run --rm artisan key:generate
+
+---
 
 # 🛠️ Application Containers
 
@@ -43,10 +48,10 @@ To run the npm container use the following command
 ### Run below command to check your PHP Insights Score
 > `docker-compose run --rm artisan insights`
 The acceptable code score for
-* **CODE** - **85%**
-* **COMPLEXITY** - **85%**
-* **Architecture** - **85%**
-* **Style** - **85%**
+* **CODE** - **90%**
+* **COMPLEXITY** - **90%**
+* **Architecture** - **90%**
+* **Style** - **90%**
 <br/> so make your code **PASS** that threshold.
 
 > using the composer container `docker-compose run --rm composer run test:insights`
